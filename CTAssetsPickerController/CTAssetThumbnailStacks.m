@@ -72,7 +72,11 @@
         thumbnailView.showsDuration = NO;
         thumbnailView.layer.borderColor = [UIColor whiteColor].CGColor;
         thumbnailView.layer.borderWidth = 0.5f;
-        
+        if (@available(iOS 11.0, *)) {
+            thumbnailView.accessibilityIgnoresInvertColors = YES;
+        } else {
+            // Fallback on earlier versions
+        }
         [thumbnailViews addObject:thumbnailView];
         [self insertSubview:thumbnailView atIndex:0];
     }
