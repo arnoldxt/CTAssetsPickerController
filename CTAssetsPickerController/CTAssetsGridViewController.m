@@ -692,6 +692,12 @@ NSString * const CTAssetsGridViewFooterIdentifier = @"CTAssetsGridViewFooterIden
     CGSize targetSize = [self.picker imageSizeForContainerSize:attributes.size];
     
     [self requestThumbnailForCell:cell targetSize:targetSize asset:asset];
+    
+    if (@available(iOS 11.0, *)) {
+        cell.accessibilityIgnoresInvertColors = YES;
+    } else {
+        // Fallback on earlier versions
+    }
 
     return cell;
 }
