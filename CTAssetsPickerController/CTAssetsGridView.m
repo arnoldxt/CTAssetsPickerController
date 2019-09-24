@@ -52,11 +52,16 @@
 
 - (void)setupViews
 {
-    self.backgroundColor = CTAssetsGridViewBackgroundColor;
+    self.backgroundColor = self.defaultGridBackgroundColor;
 }
 
 
 #pragma mark - Apperance
+
+- (UIColor *)defaultGridBackgroundColor
+{
+    return @available(iOS 13.0, *) ? [UIColor systemBackgroundColor] : CTAssetsGridViewBackgroundColor;
+}
 
 - (UIColor *)gridBackgroundColor
 {
@@ -65,7 +70,7 @@
 
 - (void)setGridBackgroundColor:(UIColor *)backgroundColor
 {
-    UIColor *color = (backgroundColor) ? (backgroundColor) : CTAssetsGridViewBackgroundColor;
+    UIColor *color = (backgroundColor) ? (backgroundColor) : self.defaultGridBackgroundColor;
     self.backgroundColor = color;
 }
 

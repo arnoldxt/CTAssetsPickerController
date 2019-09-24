@@ -139,7 +139,7 @@
 - (void)setHighlighted:(BOOL)highlighted
 {
     for (CTAssetThumbnailView *thumbnailView in self.thumbnailViews)
-        thumbnailView.backgroundColor = CTAssetsPikcerThumbnailBackgroundColor;
+        thumbnailView.backgroundColor = @available(iOS 13.0, *) ? [UIColor secondarySystemBackgroundColor] : CTAssetsPikcerThumbnailBackgroundColor;
 }
 
 @end

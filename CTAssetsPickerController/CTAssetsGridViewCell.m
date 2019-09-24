@@ -84,14 +84,14 @@
     self.disabledImageView = disabledImageView;
     
     UIView *disabledView = [UIView newAutoLayoutView];
-    disabledView.backgroundColor = CTAssetsGridViewCellDisabledColor;
+    disabledView.backgroundColor = self.defaultDisabledColor;
     disabledView.hidden = YES;
     [disabledView addSubview:self.disabledImageView];
     self.disabledView = disabledView;
     [self addSubview:self.disabledView];
     
     UIView *highlightedView = [UIView newAutoLayoutView];
-    highlightedView.backgroundColor = CTAssetsGridViewCellHighlightedColor;
+    highlightedView.backgroundColor = self.defaultHighlightedColor;
     highlightedView.hidden = YES;
     self.highlightedView = highlightedView;
     [self addSubview:self.highlightedView];
@@ -104,6 +104,11 @@
 
 #pragma mark - Apperance
 
+- (UIColor *)defaultDisabledColor
+{
+    return @available(iOS 13.0, *) ? [[UIColor systemBackgroundColor] colorWithAlphaComponent:0.8] : CTAssetsGridViewCellDisabledColor;
+}
+
 - (UIColor *)disabledColor
 {
     return self.disabledView.backgroundColor;
@@ -111,8 +116,13 @@
 
 - (void)setDisabledColor:(UIColor *)disabledColor
 {
-    UIColor *color = (disabledColor) ? disabledColor : CTAssetsGridViewCellDisabledColor;
+    UIColor *color = (disabledColor) ? disabledColor : self.defaultDisabledColor;
     self.disabledView.backgroundColor = color;
+}
+
+- (UIColor *)defaultHighlightedColor
+{
+    return @available(iOS 13.0, *) ? [[UIColor labelColor] colorWithAlphaComponent:0.5] : CTAssetsGridViewCellHighlightedColor;
 }
 
 - (UIColor *)highlightedColor
@@ -122,7 +132,7 @@
 
 - (void)setHighlightedColor:(UIColor *)highlightedColor
 {
-    UIColor *color = (highlightedColor) ? highlightedColor : CTAssetsGridViewCellHighlightedColor;
+    UIColor *color = (highlightedColor) ? highlightedColor : self.defaultHighlightedColor;
     self.highlightedView.backgroundColor = color;
 }
 

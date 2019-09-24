@@ -62,7 +62,7 @@
 
 - (void)setupViews
 {
-    self.backgroundColor = CTAssetsGridSelectedViewBackgroundColor;
+    self.backgroundColor = self.defaultSelectedBackgroundColor;
     self.layer.borderColor = CTAssetsGridSelectedViewTintColor.CGColor;
     
     CTAssetCheckmark *checkmark = [CTAssetCheckmark newAutoLayoutView];
@@ -103,6 +103,11 @@
 
 #pragma mark - Apperance
 
+- (UIColor *)defaultSelectedBackgroundColor
+{
+    return @available(iOS 13.0, *) ? [[UIColor systemBackgroundColor] colorWithAlphaComponent:0.3] : CTAssetsGridSelectedViewBackgroundColor;
+}
+
 - (UIColor *)selectedBackgroundColor
 {
     return self.backgroundColor;
@@ -110,7 +115,7 @@
 
 - (void)setSelectedBackgroundColor:(UIColor *)backgroundColor
 {
-    UIColor *color = (backgroundColor) ? backgroundColor : CTAssetsGridSelectedViewBackgroundColor;
+    UIColor *color = (backgroundColor) ? backgroundColor : self.defaultSelectedBackgroundColor;
     self.backgroundColor = color;
 }
 

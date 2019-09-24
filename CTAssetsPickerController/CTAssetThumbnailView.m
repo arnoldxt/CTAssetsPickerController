@@ -66,7 +66,7 @@
 
 - (void)setupViews
 {
-    self.backgroundColor = CTAssetsPikcerThumbnailBackgroundColor;
+    self.backgroundColor = @available(iOS 13.0, *) ? [UIColor secondarySystemBackgroundColor] : CTAssetsPikcerThumbnailBackgroundColor;
     
     UIImageView *backgroundView = [UIImageView new];
     backgroundView.contentMode = UIViewContentModeCenter;

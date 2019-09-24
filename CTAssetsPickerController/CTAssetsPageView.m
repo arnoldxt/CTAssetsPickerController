@@ -42,8 +42,8 @@
 {
     if (self = [super initWithFrame:frame])
     {
-        _pageBackgroundColor = CTAssetsPageViewPageBackgroundColor;
-        _fullscreenBackgroundColor = CTAssetsPageViewFullscreenBackgroundColor;
+        _pageBackgroundColor = self.defaultPageBackgroundColor;
+        _fullscreenBackgroundColor = self.defaultPageViewFullscreenBackgroundColor;
         [self setupViews];
     }
     
@@ -61,16 +61,26 @@
 
 #pragma mark - Apperance
 
+- (UIColor *)defaultPageBackgroundColor
+{
+    return @available(iOS 13.0, *) ? [UIColor systemBackgroundColor] : CTAssetsPageViewPageBackgroundColor;
+}
+
 - (void)setPageBackgroundColor:(UIColor *)backgroundColor
 {
-    UIColor *color = (backgroundColor) ? backgroundColor : CTAssetsPageViewPageBackgroundColor;
+    UIColor *color = (backgroundColor) ? backgroundColor : self.defaultPageBackgroundColor;
     _pageBackgroundColor = color;
     self.backgroundColor = color;
 }
 
+- (UIColor *)defaultPageViewFullscreenBackgroundColor
+{
+    return @available(iOS 13.0, *) ? [UIColor labelColor] : CTAssetsPageViewFullscreenBackgroundColor;
+}
+
 - (void)setFullscreenBackgroundColor:(UIColor *)fullscreenBackgroundColor
 {
-    UIColor *color = (fullscreenBackgroundColor) ? fullscreenBackgroundColor : CTAssetsPageViewFullscreenBackgroundColor;
+    UIColor *color = (fullscreenBackgroundColor) ? fullscreenBackgroundColor : self.defaultPageViewFullscreenBackgroundColor;
     _fullscreenBackgroundColor = color;
 }
 

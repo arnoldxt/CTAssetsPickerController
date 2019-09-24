@@ -66,7 +66,7 @@
     UILabel *label = [UILabel newAutoLayoutView];
     label.textAlignment = NSTextAlignmentCenter;
     label.font = CTAssetsGridViewFooterFont;
-    label.textColor = CTAssetsGridViewFooterTextColor;
+    label.textColor = self.defaultTextColor;
     
     self.label = label;
     [self addSubview:self.label];
@@ -86,6 +86,12 @@
     self.label.font = labelFont;
 }
 
+- (UIColor *)defaultTextColor
+{
+    return @available(iOS 13.0, *) ? [UIColor labelColor] : CTAssetsGridViewFooterTextColor;
+}
+
+
 - (UIColor *)textColor
 {
     return self.label.textColor;
@@ -93,7 +99,7 @@
 
 - (void)setTextColor:(UIColor *)textColor
 {
-    UIColor *color = (textColor) ? textColor : CTAssetsGridViewFooterTextColor;
+    UIColor *color = (textColor) ? textColor : self.defaultTextColor;
     self.label.textColor = color;
 }
 

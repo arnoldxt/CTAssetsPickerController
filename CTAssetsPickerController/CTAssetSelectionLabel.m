@@ -76,9 +76,9 @@
     {
         self.textAlignment = NSTextAlignmentCenter;
         self.font = CTAssetLabelFont;
-        self.textColor = CTAssetLabelTextColor;
+        self.textColor = self.defaultLabelTextColor;
         self.backgroundColor = CTAssetLabelBackgroundColor;
-        self.layer.borderColor = CTAssetLabelBorderColor.CGColor;
+        self.layer.borderColor = self.defaultLabelBorderColor.CGColor;
         self.layer.masksToBounds = YES;
         self.isAccessibilityElement = NO;
     }
@@ -113,7 +113,7 @@
 
 - (void)setBorderColor:(UIColor *)borderColor
 {
-    UIColor *color = (borderColor) ? borderColor : CTAssetLabelBorderColor;
+    UIColor *color = (borderColor) ? borderColor : self.defaultLabelBorderColor;
     self.layer.borderColor = color.CGColor;
 }
 
@@ -189,8 +189,18 @@
 - (void)setTextAttributes:(NSDictionary *)textAttributes
 {
     self.font  = (textAttributes) ? textAttributes[NSFontAttributeName] : CTAssetLabelFont;
-    self.textColor = (textAttributes) ? textAttributes[NSForegroundColorAttributeName] : CTAssetLabelTextColor;
+    self.textColor = (textAttributes) ? textAttributes[NSForegroundColorAttributeName] : self.defaultLabelTextColor;
     self.backgroundColor = (textAttributes) ? textAttributes[NSBackgroundColorAttributeName] : CTAssetLabelBackgroundColor;
+}
+
+- (UIColor *)defaultLabelTextColor
+{
+    return @available(iOS 13.0, *) ? [UIColor systemBackgroundColor] : CTAssetLabelTextColor;
+}
+
+- (UIColor *)defaultLabelBorderColor
+{
+    return @available(iOS 13.0, *) ? [UIColor systemBackgroundColor] : CTAssetLabelBorderColor;
 }
 
 

@@ -61,13 +61,13 @@
     {
         _thumbnailSize = size;
         
-        _titleTextColor         = CTAssetCollectionViewCellTitleTextColor;
-        _selectedTitleTextColor = CTAssetCollectionViewCellTitleTextColor;
-        _countTextColor         = CTAssetCollectionViewCellCountTextColor;
-        _selectedCountTextColor = CTAssetCollectionViewCellCountTextColor;
+        _titleTextColor         = self.defaultTitleTextColor;
+        _selectedTitleTextColor = self.defaultSelectedTitleTextColor;
+        _countTextColor         = self.defaultCountTextColor;
+        _selectedCountTextColor = self.defaultSelectedCountTextColor;
 
-        _accessoryColor         = CTAssetCollectionViewCellAccessoryColor;
-        _selectedAccessoryColor = CTAssetCollectionViewCellAccessoryColor;
+        _accessoryColor         = self.defaultAccessoryColor;
+        _selectedAccessoryColor = self.defaultSelectedAccessoryColor;
 
         self.opaque                             = YES;
         self.isAccessibilityElement             = YES;
@@ -156,15 +156,25 @@
     self.titleLabel.font = font;
 }
 
+- (UIColor *)defaultTitleTextColor
+{
+    return @available(iOS 13.0, *) ? [UIColor labelColor] : CTAssetCollectionViewCellTitleTextColor;
+}
+
 - (void)setTitleTextColor:(UIColor *)titleTextColor
 {
-    UIColor *color = (titleTextColor) ? titleTextColor : CTAssetCollectionViewCellTitleTextColor;
+    UIColor *color = (titleTextColor) ? titleTextColor : self.defaultTitleTextColor;
     _titleTextColor = color;
+}
+
+- (UIColor *)defaultSelectedTitleTextColor
+{
+    return @available(iOS 13.0, *) ? [UIColor labelColor] : CTAssetCollectionViewCellTitleTextColor;
 }
 
 - (void)setSelectedTitleTextColor:(UIColor *)titleTextColor
 {
-    UIColor *color = (titleTextColor) ? titleTextColor : CTAssetCollectionViewCellTitleTextColor;
+    UIColor *color = (titleTextColor) ? titleTextColor : self.defaultTitleTextColor;
     _selectedTitleTextColor = color;
 }
 
@@ -179,27 +189,47 @@
     self.countLabel.font = font;
 }
 
+- (UIColor *)defaultCountTextColor
+{
+    return @available(iOS 13.0, *) ? [UIColor labelColor] : CTAssetCollectionViewCellCountTextColor;
+}
+
 - (void)setCountTextColor:(UIColor *)countTextColor
 {
-    UIColor *color = (countTextColor) ? countTextColor : CTAssetCollectionViewCellCountTextColor;
+    UIColor *color = (countTextColor) ? countTextColor : self.defaultCountTextColor;
     _countTextColor = color;
+}
+
+- (UIColor *)defaultSelectedCountTextColor
+{
+    return @available(iOS 13.0, *) ? [UIColor labelColor] : CTAssetCollectionViewCellCountTextColor;
 }
 
 - (void)setSelectedCountTextColor:(UIColor *)countTextColor
 {
-    UIColor *color = (countTextColor) ? countTextColor : CTAssetCollectionViewCellCountTextColor;
+    UIColor *color = (countTextColor) ? countTextColor : self.defaultSelectedCountTextColor;
     _selectedCountTextColor = color;
+}
+
+- (UIColor *)defaultAccessoryColor
+{
+    return @available(iOS 13.0, *) ? [UIColor tertiarySystemBackgroundColor] : CTAssetCollectionViewCellAccessoryColor;
 }
 
 - (void)setAccessoryColor:(UIColor *)accessoryColor
 {
-    UIColor *color = (accessoryColor) ? accessoryColor : CTAssetCollectionViewCellAccessoryColor;
+    UIColor *color = (accessoryColor) ? accessoryColor : self.defaultAccessoryColor;
     _accessoryColor = color;
+}
+
+- (UIColor *)defaultSelectedAccessoryColor
+{
+    return @available(iOS 13.0, *) ? [UIColor tertiarySystemBackgroundColor] : CTAssetCollectionViewCellAccessoryColor;
 }
 
 - (void)setSelectedAccessoryColor:(UIColor *)accessoryColor
 {
-    UIColor *color = (accessoryColor) ? accessoryColor : CTAssetCollectionViewCellAccessoryColor;
+    UIColor *color = (accessoryColor) ? accessoryColor : self.defaultSelectedAccessoryColor;
     _selectedAccessoryColor = color;
 }
 
